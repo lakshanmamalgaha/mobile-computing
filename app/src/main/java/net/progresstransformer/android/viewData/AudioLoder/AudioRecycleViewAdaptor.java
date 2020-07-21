@@ -49,9 +49,6 @@ public class AudioRecycleViewAdaptor extends RecyclerView.Adapter<RecyclerView.V
         //we will load thumbnail using glid library
         Uri uri = Uri.fromFile(Constant.allaudioList.get(position));
 
-//
-//        Glide.with(mContext)
-//                .load(uri).thumbnail(0.1f).into(((FileLayoutHolder) holder).thumbnail);
         ((FileLayoutHolder) holder).thumbnail.setImageResource(R.drawable.images_song);
         ((FileLayoutHolder) holder).ic_more_btn.setOnClickListener(new View.OnClickListener() {
             @Override
