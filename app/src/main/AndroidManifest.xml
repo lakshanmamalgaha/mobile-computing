@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="net.progresstransformer.android">
+
+    <!-- Internet required for mDNS and transfer -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Storage access required for transferring files -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- Enables the broadcast and transfer services to run at boot -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
+        android:supportsRtl="true"
+        android:theme="@style/LightTheme"
+        tools:ignore="UnusedAttribute">
+
+
+        <activity android:name="net.progresstransformer.android.viewData.AudioPlayer.AudioPlayer"></activity>
+        <activity android:name="net.progresstransformer.android.viewData.ViewPdf.ViewPdf" />
+        <activity android:name="net.progresstransformer.android.viewData.SendVideo.SendVideo" />
+        <activity android:name="net.progresstransformer.android.viewData.PlayVideo.PlayerVideo" /> <!-- <activity android:name=".MainActivity" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity android:name="net.progresstransformer.android.viewData.MainActivity">
+
+        </activity>
+
+        <!-- Intro activity -->
+        <activity
+            android:name="net.progresstransformer.android.ui.IntroActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+
+        <!-- Transfer activity -->
+        <activity
+            android:name="net.progresstransformer.android.ui.transfer.TransferActivity"
+            android:launchMode="singleTop"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
+        </activity>
+
+        <!-- Explorer activity -->
+        <activity
+            android:name="net.progresstransformer.android.ui.explorer.ExplorerActivity"
+            android:label="@string/activity_explorer"
+            android:parentActivityName="net.progresstransformer.android.ui.transfer.TransferActivity"
+            tools:ignore="Instantiatable" />
+
+        <!-- Share activity -->
+        <activity
+            android:name="net.progresstransformer.android.ui.ShareActivity"
+            android:label="@string/activity_share"
+            tools:ignore="Instantiatable">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <action android:name="android.intent.action.SEND_MULTIPLE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="*/*" />
+            </intent-filter>
+        </activity>
+
+        <!-- Settings activity -->
+        <activity
+            android:name="net.progresstransformer.android.ui.settings.SettingsActivity"
+            android:label="@string/activity_settings"
+            android:parentActivityName="net.progresstransformer.android.ui.transfer.TransferActivity" />
+
+        <!-- About activity -->
+        <activity
+            android:name="net.progresstransformer.android.ui.AboutActivity"
+            android:label="@string/activity_about"
+            android:parentActivityName="net.progresstransformer.android.ui.transfer.TransferActivity"
+            tools:ignore="Instantiatable" />
+
+        <!-- Service for transfers -->
+        <service
+            android:name="net.progresstransformer.android.transfer.TransferService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <!-- Receiver for actions that might require the service to start -->
+        <receiver android:name="net.progresstransformer.android.util.StartReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+    </application>
+
+</manifest>
